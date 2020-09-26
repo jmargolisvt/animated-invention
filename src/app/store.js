@@ -1,19 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { applyMiddleware, createStore, compose } from '@reduxjs/toolkit';
 import middleware, { sagaMiddleware } from './middleware';
+import rootSaga from '../sagas/index';
+import messageReducer from '../reducers';
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const configStore = (initialState = {}) => {
-  const store = createStore(reducer, initialState, composeEnhancer(applyMiddleware(...middleware)));
+  const store = createStore(messageReducer, initialState, composeEnhancer(applyMiddleware(...middleware)));
 
   sagaMiddleware.run(rootSaga);
-
-  if (module.hot) {
-    module.hot.accept('reducers', () => {
-      store.replaceReducer(require('reducers/index').default);
-    });
-  }
 
   return {
     store,
@@ -21,3 +16,5 @@ const configStore = (initialState = {}) => {
 };
 
 const { store } = configStore();
+
+export default store;
