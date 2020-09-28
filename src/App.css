@@ -2,16 +2,26 @@ body {
   background-color: darkslateblue;
 }
 
-textarea, button {
+textarea, button, #messages {
   width: 50%;
   display: block;
 }
 
-textarea {
-  margin: 10% auto 1%;
+textarea, #messages {
+  margin: 5% auto 1%;
 }
 
 button {
   margin: 0 auto;
   padding: 20px;
+}
+
+#messages {
+  border: 1px solid dimgrey;
+  padding: 20px;
+  color: white;
+}
+
+#messages li {
+  list-style: none;
 }
